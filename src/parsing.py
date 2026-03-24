@@ -75,11 +75,11 @@ def load_family_file(filepath):
         engine="python"
     )
 
-    # ensure string columns are strings
+    # Ensure string columns are strings
     df["ast_name"] = df["ast_name"].astype("string")
     df["rescod"] = df["rescod"].astype("string")
 
-    # automatically downcast numeric columns
+    # Automatically downcast numeric columns
     for col in df.select_dtypes(include=["int", "float"]).columns:
         df[col] = pd.to_numeric(df[col], downcast="integer")
 
