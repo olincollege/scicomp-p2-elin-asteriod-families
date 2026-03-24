@@ -8,7 +8,7 @@
 
 This project identifies asteroid families using the Hierarchical Clustering
 Method (HCM) and K-D Trees. The goal is to identify at least 8 asteroid families
-to 95% or higher completion.
+to 95% or higher completion. This project is implemented in Python.
 
 ### Instructions
 
@@ -33,11 +33,13 @@ to 95% or higher completion.
 
 ### Proper Orbital Elements
 
+The variables used to group the asteroids into families.
+
 - a: proper semi-major axis
 - e: proper eccentricity
 - sin(i): sine of proper inclination
 
-### Adjustable Parameters
+### Adjustable Parameter
 
 - radius: the radius of the K-D Tree search. The radius controls how far the
   algorithm looks for nearby asteroids when forming clusters. Increasing the
