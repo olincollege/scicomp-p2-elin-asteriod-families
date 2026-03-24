@@ -23,7 +23,7 @@ from sklearn.neighbors import KDTree
 import parsing
 
 
-def run_hcm_kdtree(df, cutoff=50.0, min_cluster_size=20):
+def hcm_kdtree(df, cutoff=50.0, min_cluster_size=20):
     """
     Perform asteroid family detection using the Hierarchical Clustering Method
     (HCM) and a K-D tree to accelerate neighbor searches.
@@ -105,12 +105,12 @@ def run_hcm_kdtree(df, cutoff=50.0, min_cluster_size=20):
                     continue
 
                 # Compute exact HCM velocity distance
-                da = (a[current] - a[j]) / a[current]
-                de = e[current] - e[j]
-                dsini = sini[current] - sini[j]
+                d_a = (a[current] - a[j]) / a[current]
+                d_e = e[current] - e[j]
+                d_sini = sini[current] - sini[j]
 
                 d = n[current] * a[current] * np.sqrt(
-                    (5/4)*da*da + 2*de*de + 2*dsini*dsini
+                    (5/4)*d_a*d_a + 2*d_e*d_e + 2*d_sini*d_sini
                 )
 
                 # Only accept if within cutoff
@@ -275,19 +275,12 @@ if __name__ == "__main__":
         "asteroid-data/indiv_ast_fam_membership.txt"
     )
 
-    print("datasets parsed") #### REMOVE LATER
-
     # Run KDTree HCM
-    elements["cluster"] = run_hcm_kdtree(
+    elements["cluster"] = hcm_kdtree(
         elements,
         cutoff=50.0,
         min_cluster_size=20
     )
-
-    print("clustering complete") #### REMOVE LATER
-
-    print("\nTop detected clusters:")
-    print(elements["cluster"].value_counts().head(10))
 
     # Merge with reference
     merged = elements.merge(
@@ -297,33 +290,14 @@ if __name__ == "__main__":
         how="left"
     )
 
-    print("\nMerged dataset preview:") ####### delete later
-    print(merged.head())
-
     elements.to_csv("results/hcm_results.csv", index=False)
     merged.to_csv("results/hcm_with_reference.csv", index=False)
 
-
     # Check for completeness
     results = compute_completeness(merged)
-
-    print("\nTop families by completeness:")
-    print(results.head(10))
-
     good_families = results[results["completeness"] >= 0.95]
 
     print(f"\nFamilies ≥95% completeness: {len(good_families)}")
-
-    top8 = results[results["completeness"] >= 0.95].head(8)
-
-    print("\nTop 8 families meeting benchmark:")
-    print(top8)
-
-    print(elements["cluster"].value_counts().head(10))
-
-    print("\nFamilies with ZERO detection:")
-    print(results[results["best_cluster"].isna()].head())
-
 
     # Test Merge Purity
     purity_results = compute_purity(merged)
@@ -336,9 +310,10 @@ if __name__ == "__main__":
         how="left"
     )
 
-    top25 = combined.sort_values(
-        "completeness", ascending=False
-    ).head(25)
+    top8_comp_pure = combined[
+        (combined["purity"] >= 0.9) & 
+        (combined["completeness"].notna())
+    ].sort_values("completeness", ascending=False).head(8)
 
-    print("\nTop 25 families by completeness (with purity):")
-    print(top25[["family", "best_cluster", "completeness", "purity"]])
+    print("\nTop 8 families by completeness with ≥0.9 purity:")
+    print(top8_comp_pure[["family", "best_cluster", "completeness", "purity"]])
