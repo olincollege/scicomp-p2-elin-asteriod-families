@@ -55,7 +55,28 @@ To run the provided unit tests, run `pytest tests/` in your terminal.
 
 ### Results and Benchmark
 
-{---------------------------TODO---------------}
+**Families ≥95% completeness:** 19
+
+#### **Top 8 Families by Completeness (Purity ≥ 0.9)**
+
+| Family | Best Cluster | Completeness | Purity |
+| ------ | ------------ | ------------ | ------ |
+| 606    | 32           | 1.000        | 1.000  |
+| 1547   | 75           | 1.000        | 1.000  |
+| 396    | 25           | 0.999        | 1.000  |
+| 3815   | 123          | 0.999        | 1.000  |
+| 618    | 33           | 0.998        | 0.931  |
+| 302    | 19           | 0.998        | 1.000  |
+| 18405  | 312          | 0.992        | 1.000  |
+| 293    | 73           | 0.989        | 1.000  |
+
+My project met the benchmark by identifying more than 8 asteroid families to at
+least 95% completeness. The table above show the top 8 asteroid families by
+completeness that maintain a purity\* score of at least 0.9.
+
+\*Purity refers to how “clean” a detected cluster is: how much it is dominated
+by a single true asteroid family. This is used to gauge if clusters are being
+over-merged to achieve completeness.
 
 ### References
 
