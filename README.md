@@ -35,9 +35,9 @@ to 95% or higher completion. This project is implemented in Python.
 
 The variables used to group the asteroids into families.
 
-- a: proper semi-major axis
-- e: proper eccentricity
-- sin(i): sine of proper inclination
+- **a**: proper semi-major axis (AU)
+- **e**: proper eccentricity (unitless)
+- **sin(i):** sine of proper inclination (degrees)
 
 ### Adjustable Parameter
 

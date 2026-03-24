@@ -1,4 +1,9 @@
+""" 
+Parsing Functions
+"""
+
 import pandas as pd
+
 
 def load_asteroid_file(filepath):
     """

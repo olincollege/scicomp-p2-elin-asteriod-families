@@ -20,7 +20,8 @@ This implementation follows the standard HCM approach:
 import pandas as pd
 import numpy as np
 from sklearn.neighbors import KDTree
-import parsing
+
+from . import parsing
 
 
 def hcm_kdtree(df, cutoff=50.0, min_cluster_size=20):
