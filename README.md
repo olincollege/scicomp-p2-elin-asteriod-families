@@ -27,8 +27,8 @@ to 95% or higher completion. This project is implemented in Python.
 5.  Run the algorithm from your terminal using `python src/main.py`
 6.  Wait for the algorithm to complete (status shown in terminal)
 7.  View top results printed in the terminal
-8.  Optionally, view the files `hcm_results.csv` and `hcm_with_reference.csv` to
-    view the complete results
+8.  Optionally, view the files `results/hcm_results.csv` and
+    `results/hcm_with_reference.csv` to view the complete results
 9.  Optionally, run unit tests with `pytest tests/`
 
 ### Proper Orbital Elements
